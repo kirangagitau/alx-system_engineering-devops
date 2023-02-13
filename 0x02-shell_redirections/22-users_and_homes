@@ -1,2 +1,2 @@
 #/bin/bash
-grep -oP '^[^:]+|.*:\K[^:]+(?=:[^:]+)' /etc/passwd
+getent passwd | cut -d: -f 1,6 | sort
