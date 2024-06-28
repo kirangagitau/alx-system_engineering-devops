@@ -1,15 +1,12 @@
 # install_flask.pp
 
-node default {
-    # Ensure pip3 is installed
-    package { 'python3-pip':
-        ensure => installed,
-    }
+# Ensure the python3-pip package is installed
+package { 'python3-pip':
+  ensure => installed,
+}
 
-    # Ensure Flask version 2.1.0 is installed via pip3
-    exec { 'install_flask':
-        command => '/usr/bin/pip3 install Flask==2.1.0',
-        unless  => '/usr/bin/pip3 show Flask | grep "Version: 2.1.0"',
-        require => Package['python3-pip'],
-    }
+# Use the python::pip resource to install Flask version 2.1.0
+python::pip { 'flask':
+  ensure   => '2.1.0',
+  provider => 'pip3',
 }
