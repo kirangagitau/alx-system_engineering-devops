@@ -1,5 +1,5 @@
-# client configuartion with puppet
-# connect to a server without a password.
+#!/usr/bin/env bash
+# ssh client configuartion with puppet
 
 include stdlib
 
