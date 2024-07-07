@@ -1,1 +1,1 @@
-Scripts her deal with the shell permisions
+attack is best defence
