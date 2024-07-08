@@ -18,4 +18,4 @@ server1
   server 266533-web-01 34.227.90.116:80 check
   server 266533-web-02 34.239.249.63:80 check" >> /etc/haproxy/haproxy.cfg
 
-sudo service haproxy
+sudo service haproxy restart
