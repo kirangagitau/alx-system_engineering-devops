@@ -20,29 +20,28 @@ cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.b
 # Creating new index
 echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
 
-# Setting up /redirect_me to a youtube video
-sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-
-# Set up a 404 page
-echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
-sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/default
-print %s "server {
-	listen 80;
+# Configuting the server
+server_config=\
+"server {
+	listen 80 default_server;
 	listen [::]:80 default_server;
-
-	root /etc/nginx/html;
-	index index.html index.htm;
-
-	location /redirect_me {
-		return 301 http://sirgitau.tech/;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	add_header X-Served-By \$hostname;
+	location / {
+		try_files \$uri \$uri/ =404;
 	}
+	if (\$request_filename ~ redirect_me){
+		rewrite ^ https://youtube.com permanent;
+	}
+	error_page 404 /404.html;
+	location = /404.html {
+		internal;
+	}
+}"
 
-	error_page 404 / 404.html;
-	location /404 {
-	   root /etc/nginx/html;
-	   internal;
-        }
-}" >> /etc/nginx/sites-available/default
+echo "$server_config" > /etc/nginx/sites-enabled/default
 
 # Restarting nginx
 sudo service nginx restart
