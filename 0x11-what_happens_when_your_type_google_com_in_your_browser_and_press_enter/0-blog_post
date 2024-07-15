@@ -1,0 +1,11 @@
+I find it very fascinating how the whole process of communication happens from my browser to google servers.
+
+# Step 1 is to resolve the name goole.com into an ip address,
+# Step 2 is to establish what communication protocoal is to be used,
+# Step 3 is going through firewall
+# step 4 SSL establishing secure connection, through encryption of data
+	
+	Some of the softwares involved are:
+# Webservers
+The first thing is that when I type google.com in my browser, my computer forwards that request to my default gateway which is usualy my router's
+ip address. The IP 
