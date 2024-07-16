@@ -1,11 +1,40 @@
-I find it very fascinating how the whole process of communication happens from my browser to google servers.
+What happens when you type google.com in your browser and press Enter
 
 # Step 1 is to resolve the name goole.com into an ip address,
 # Step 2 is to establish what communication protocoal is to be used,
 # Step 3 is going through firewall
 # step 4 SSL establishing secure connection, through encryption of data
-	
-	Some of the softwares involved are:
-# Webservers
+# Post must cover;-
+-------	DNS request 
+-------	TCP/IP
+	Firewall
+	HTTPS/SSL
+-------	Load balancer
+	Webserver
+	Application server
+	Database
+
+There are two aspects to the answers:-
+A. What the user sees 
+B. What remains transparent to the user (Behind the scenes)
+
+WHAT USER SEES.
+- On pressing enter the user is given a feedback responce of google dashboard with a google search prompt to begin
+searching or surfing the web.
+
+
+BEHIND THE SCENES.
 The first thing is that when I type google.com in my browser, my computer forwards that request to my default gateway which is usualy my router's
-ip address. The IP 
+ip address. My router then forwards the request to my ISP (internet service provider) from which a recursive DNS resolver is provided. If the DNS
+resolver holds the address of specified domain name, it returns the IP address but if not, then the query goes to the root DNS server which sends
+the query to second level servers which in turn sends the query to authoritative server. The authoritative server then fetches the DNS record that
+resolves the domain to an IP address and the IP address is fed back to my client machine. The IP address will belong to one of google servers most
+likely a load balancer server. On obtaining an IP address, my browser initiates a TCP/IP handshake so as to establish a relibale connection with 
+the server. The handshake is a three way with step one being the my machine as the client sends a segment with synchronize sequence number (SYN).
+The server responds with SYN + ACK (acknowledgement) to the client. The client finaly responds with ACK and this establishes a reliable connection. 
+
+Usually google has several servers for redundancy and so when my request is received it goes to a load balancer that uses a configured load balancing
+algorithm to assign my request to a backend server. 
+
+The application server now serves my browser with the google dash board that provides me with search capability. the application  server can read
+information from the google database and upon my request it provides me with a search result.
